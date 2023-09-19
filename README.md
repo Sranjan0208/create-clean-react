@@ -50,3 +50,7 @@ If you'd like to contribute or report an issue, please check out the [GitHub rep
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Keywords
+
+React, CLI, Web Development, JavaScript, FrontEnd, Productivity, Vite, Tailwind CSS
