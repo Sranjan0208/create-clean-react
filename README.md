@@ -1,6 +1,7 @@
 # Create Clean React CLI
 
 A CLI tool for creating and cleaning up React projects.
+[NPM link](https://www.npmjs.com/package/create-clean-react)
 
 ## Installation
 
