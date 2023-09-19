@@ -3,6 +3,8 @@
 A CLI tool for creating and cleaning up React projects.
 [NPM link](https://www.npmjs.com/package/create-clean-react)
 
+Leave a ⭐ if you like the project.
+
 ## Installation
 
 You can install this package globally using npm:
