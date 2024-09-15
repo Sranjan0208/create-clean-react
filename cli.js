@@ -7,9 +7,10 @@ import chalk from "chalk";
 
 const { exec } = pkg;
 
-function createReactApp(appName) {
-  exec(`npm create vite@latest ${appName} -- --template react`);
-  console.log(chalk.green(`✓ Created React app: ${appName}`));
+function createReactApp(appName, language) {
+  const template = language === "TypeScript" ? "react-ts" : "react";
+  exec(`npm create vite@latest ${appName} -- --template ${template}`);
+  console.log(chalk.green(`✓ Created React app with ${language}: ${appName}`));
 }
 
 function cleanReactApp(appName) {
@@ -28,18 +29,18 @@ function cleanReactApp(appName) {
     }
   });
 
-  // Modify src/App.jsx (or .js) to remove default content
-  const appJsPath = `${appDirectory}/src/App.jsx`; // Adjust for JSX or JS
+  // Modify src/App.jsx or src/App.tsx based on language
+  const appJsPath = `${appDirectory}/src/App.${existsSync(`${appDirectory}/src/App.tsx`) ? 'tsx' : 'jsx'}`;
   if (existsSync(appJsPath)) {
     writeFileSync(
       appJsPath,
       'import React from "react";\n\nconst App = () => {\n  return <div className="text-xl font-bold underline">I am the Honored One!!</div>;\n}\n\nexport default App;\n'
     );
-    console.log(chalk.green("✓ Modified: src/App.jsx"));
+    console.log(chalk.green(`✓ Modified: ${appJsPath}`));
   } else {
     console.log(
       chalk.yellow(
-        "Warning: src/App.jsx not found. Please make sure it exists."
+        `Warning: ${appJsPath} not found. Please make sure it exists.`
       )
     );
   }
@@ -109,10 +110,16 @@ function init() {
         name: "appName",
         message: "Enter the name of your React app:",
       },
+      {
+        type: "list",
+        name: "language",
+        message: "Select the language you want to use:",
+        choices: ["JavaScript", "TypeScript"],
+      },
     ])
     .then((answers) => {
-      const { appName } = answers;
-      createReactApp(appName);
+      const { appName, language } = answers;
+      createReactApp(appName, language);
       cleanReactApp(appName);
       console.log(
         chalk.green(`Successfully created a clean React app: ${appName}`)
