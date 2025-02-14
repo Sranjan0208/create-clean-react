@@ -30,7 +30,9 @@ function cleanReactApp(appName) {
   });
 
   // Modify src/App.jsx or src/App.tsx based on language
-  const appJsPath = `${appDirectory}/src/App.${existsSync(`${appDirectory}/src/App.tsx`) ? 'tsx' : 'jsx'}`;
+  const appJsPath = `${appDirectory}/src/App.${
+    existsSync(`${appDirectory}/src/App.tsx`) ? "tsx" : "jsx"
+  }`;
   if (existsSync(appJsPath)) {
     writeFileSync(
       appJsPath,
@@ -76,7 +78,7 @@ function cleanReactApp(appName) {
   exec(`cd ${appDirectory} && pnpm add tailwindcss @tailwindcss/vite`);
 
   // Modify vite.config.js to include Tailwind CSS plugin
-  const viteConfigPath = `${appDirectory}/vite.config.js`;
+  const viteConfigPath = `${appDirectory}/vite.config.ts`;
   if (existsSync(viteConfigPath)) {
     writeFileSync(
       viteConfigPath,
