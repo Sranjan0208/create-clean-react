@@ -9,7 +9,7 @@ const { exec } = pkg;
 
 function createReactApp(appName, language) {
   const template = language === "TypeScript" ? "react-ts" : "react";
-  exec(`pnpm create vite ${appName} -- --template ${template}`);
+  exec(`pnpm create vite ${appName} --template ${template}`);
   console.log(chalk.green(`✓ Created React app with ${language}: ${appName}`));
 }
 
