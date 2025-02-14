@@ -9,7 +9,7 @@ const { exec } = pkg;
 
 function createReactApp(appName, language) {
   const template = language === "TypeScript" ? "react-ts" : "react";
-  exec(`npm create vite@latest ${appName} -- --template ${template}`);
+  exec(`pnpm create vite ${appName} -- --template ${template}`);
   console.log(chalk.green(`✓ Created React app with ${language}: ${appName}`));
 }
 
@@ -73,7 +73,7 @@ function cleanReactApp(appName) {
 
   // Install Tailwind CSS as a Vite plugin
   console.log(chalk.green("Installing Tailwind CSS with Vite plugin"));
-  exec(`cd ${appDirectory} && npm install tailwindcss @tailwindcss/vite`);
+  exec(`cd ${appDirectory} && pnpm add tailwindcss @tailwindcss/vite`);
 
   // Modify vite.config.js to include Tailwind CSS plugin
   const viteConfigPath = `${appDirectory}/vite.config.js`;
@@ -92,7 +92,7 @@ function cleanReactApp(appName) {
   }
 
   console.log(chalk.green("✓ Running Vite"));
-  exec(`cd ${appDirectory} && npm install && npm run dev`);
+  exec(`cd ${appDirectory} && pnpm install && pnpm run dev`);
 }
 
 function init() {
