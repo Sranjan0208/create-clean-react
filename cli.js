@@ -58,13 +58,10 @@ function cleanReactApp(appName) {
     );
   }
 
-  // Modify src/index.css to remove default content
+  // Modify src/index.css to import Tailwind CSS
   const indexCssPath = `${appDirectory}/src/index.css`;
   if (existsSync(indexCssPath)) {
-    writeFileSync(
-      indexCssPath,
-      `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`
-    );
+    writeFileSync(indexCssPath, `@import "tailwindcss";\n`);
     console.log(chalk.green("✓ Modified: src/index.css"));
   } else {
     console.log(
@@ -74,31 +71,27 @@ function cleanReactApp(appName) {
     );
   }
 
-  // install tailwind css
-  console.log(chalk.green("Installing and Initializing Tailwind CSS"));
-  exec(`cd ${appDirectory} && npm install -D tailwindcss postcss autoprefixer`);
+  // Install Tailwind CSS as a Vite plugin
+  console.log(chalk.green("Installing Tailwind CSS with Vite plugin"));
+  exec(`cd ${appDirectory} && npm install tailwindcss @tailwindcss/vite`);
 
-  // Initialize Tailwind CSS
-  exec(`cd ${appDirectory} && npx tailwindcss init -p`);
-  console.log(chalk.green("✓ Installed and Initialized Tailwind CSS"));
-
-  // Modify tailwind.config.js
-  const tailwindConfigPath = `${appDirectory}/tailwind.config.js`;
-  if (existsSync(tailwindConfigPath)) {
+  // Modify vite.config.js to include Tailwind CSS plugin
+  const viteConfigPath = `${appDirectory}/vite.config.js`;
+  if (existsSync(viteConfigPath)) {
     writeFileSync(
-      tailwindConfigPath,
-      `/** @type {import('tailwindcss').Config} */\n export default { \n content: ["./index.html","./src/**/*.{js,ts,jsx,tsx}",],\n theme:{\n extend: {},\n },\n plugins: [],\n};`
+      viteConfigPath,
+      `import { defineConfig } from 'vite';\nimport tailwindcss from '@tailwindcss/vite';\n\nexport default defineConfig({\n  plugins: [\n    tailwindcss(),\n  ],\n});`
     );
-    console.log(chalk.green("✓ Modified: tailwind.config.js"));
+    console.log(chalk.green("✓ Modified: vite.config.js"));
   } else {
     console.log(
       chalk.yellow(
-        "Warning: tailwind.config.js not found. Please make sure it exists."
+        "Warning: vite.config.js not found. Please make sure it exists."
       )
     );
   }
 
-  console.log(chalk.green("✓ Running vite"));
+  console.log(chalk.green("✓ Running Vite"));
   exec(`cd ${appDirectory} && npm install && npm run dev`);
 }
 
